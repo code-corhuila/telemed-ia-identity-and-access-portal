@@ -1,0 +1,15 @@
+/*
+ * Global styles apply only when the portal runs standalone (port 4206).
+ * Inside the shell they are not loaded, so design tokens and fonts live in
+ * the identity layout component instead.
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+}
