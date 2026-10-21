@@ -48,4 +48,13 @@ export class IdentityApiService {
   register(registration: Registration): Observable<RegistrationResult> {
     return this.api.post<RegistrationResult>('/auth/register', registration, crypto.randomUUID());
   }
+
+  /** identity-api answers 202 whether or not the email exists, so there is nothing to read. */
+  requestPasswordRecovery(email: string): Observable<unknown> {
+    return this.api.post('/auth/password-recovery', { email }, crypto.randomUUID());
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<unknown> {
+    return this.api.post('/auth/password-reset', { token, newPassword }, crypto.randomUUID());
+  }
 }
