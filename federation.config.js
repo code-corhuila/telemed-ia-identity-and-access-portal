@@ -6,8 +6,11 @@ const {
 module.exports = withNativeFederation({
   name: 'identity',
 
-  // The exposed routes arrive with the identity pages.
-  exposes: {},
+  // The shell mounts these public routes (sign-in, registration and
+  // password recovery) outside its authGuard.
+  exposes: {
+    './routes': './src/app/identity/identity.routes.ts',
+  },
 
   shared: {
     ...shareAll({
