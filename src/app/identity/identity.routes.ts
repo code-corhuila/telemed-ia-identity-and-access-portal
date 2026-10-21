@@ -22,4 +22,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/forgot-password/forgot-password.page').then((module) => module.ForgotPasswordPage),
   },
+  {
+    path: 'reset-password',
+    title: 'Nueva contraseña · TeleMed IA',
+    loadComponent: () =>
+      import('./pages/reset-password/reset-password.page').then((module) => module.ResetPasswordPage),
+  },
 ];
