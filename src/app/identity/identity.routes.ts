@@ -11,4 +11,9 @@ export const routes: Routes = [
     title: 'Iniciar sesión · TeleMed IA',
     loadComponent: () => import('./pages/sign-in/sign-in.page').then((module) => module.SignInPage),
   },
+  {
+    path: 'register',
+    title: 'Crear cuenta · TeleMed IA',
+    loadComponent: () => import('./pages/register/register.page').then((module) => module.RegisterPage),
+  },
 ];
