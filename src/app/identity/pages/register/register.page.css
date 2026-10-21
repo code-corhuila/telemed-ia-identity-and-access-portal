@@ -1,0 +1,68 @@
+.hint {
+  margin: 0;
+  color: var(--tm-muted);
+  font-size: 0.8125rem;
+}
+
+/* Confirmation once the account exists. */
+.done {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+
+.done-mark {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 8px;
+}
+
+.done-mark circle {
+  fill: var(--tm-success-soft);
+}
+
+.done-mark path {
+  fill: none;
+  stroke: var(--tm-success);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: check 0.5s 0.15s ease-out forwards;
+}
+
+@keyframes check {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .done-mark path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+
+.done h2 {
+  margin: 0;
+  color: var(--tm-ink);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.done p {
+  margin: 0 0 12px;
+  color: var(--tm-muted);
+}
+
+.done strong {
+  color: var(--tm-ink);
+  overflow-wrap: anywhere;
+}
+
+.done .primary {
+  text-decoration: none;
+}
