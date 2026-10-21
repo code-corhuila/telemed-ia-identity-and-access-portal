@@ -51,4 +51,16 @@ describe('errorMessage', () => {
       'Revisa los datos del formulario e inténtalo de nuevo.',
     );
   });
+
+  it('sends the patient back for a new link when the reset token is not valid', () => {
+    expect(errorMessage(apiError(401, 'INVALID_RESET_TOKEN')).text).toBe(
+      'El enlace para restablecer tu contraseña no es válido o ya venció. Solicita uno nuevo.',
+    );
+  });
+
+  it('explains a new password the API rejects', () => {
+    expect(errorMessage(apiError(400, 'INVALID_NEW_PASSWORD')).text).toBe(
+      'La nueva contraseña no cumple los requisitos. Usa al menos 8 caracteres.',
+    );
+  });
 });
