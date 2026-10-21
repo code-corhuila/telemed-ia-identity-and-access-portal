@@ -30,6 +30,10 @@ export class ApiClientService {
         ? this.fail(409, 'REGISTRATION_CONFLICT', 'Registration conflict.')
         : of({ userId: crypto.randomUUID(), role: 'PATIENT' } as T).pipe(delay(LATENCY_MS));
     }
+    if (path === '/auth/password-recovery') {
+      // Same answer for any email, as identity-api does.
+      return of(null as T).pipe(delay(LATENCY_MS));
+    }
     return this.fail(404, 'NOT_FOUND', `Preview has no POST ${path}`);
   }
 
