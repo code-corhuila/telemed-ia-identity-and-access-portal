@@ -6,4 +6,9 @@ import { Routes } from '@angular/router';
  */
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'sign-in' },
+  {
+    path: 'sign-in',
+    title: 'Iniciar sesión · TeleMed IA',
+    loadComponent: () => import('./pages/sign-in/sign-in.page').then((module) => module.SignInPage),
+  },
 ];
