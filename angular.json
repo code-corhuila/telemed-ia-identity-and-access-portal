@@ -65,6 +65,13 @@
               "browser": "src/main.ts",
               "tsConfig": "tsconfig.spec.json",
               "externalDependencies": []
+            },
+            "preview": {
+              "optimization": false,
+              "sourceMap": true,
+              "browser": "src/main.ts",
+              "tsConfig": "tsconfig.preview.json",
+              "externalDependencies": []
             }
           }
         },
@@ -97,6 +104,13 @@
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "buildTarget": "telemed-ia-identity-and-access-portal:esbuild:test"
+          }
+        },
+        "serve-preview": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4206,
+            "buildTarget": "telemed-ia-identity-and-access-portal:esbuild:preview"
           }
         }
       }

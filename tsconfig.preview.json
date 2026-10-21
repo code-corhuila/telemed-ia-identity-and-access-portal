@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/preview",
+    "types": [],
+    // Preview runs without the shell: shell/* resolve to simulations.
+    "paths": {
+      "shell/apiClient": ["./src/preview/shell/api-client.ts"],
+      "shell/session": ["./src/preview/shell/session.ts"],
+      "shell/apiError": ["./src/preview/shell/api-error.ts"]
+    }
+  },
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/testing/**", "src/shell-modules.d.ts", "src/bootstrap.ts"]
+}

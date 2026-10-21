@@ -6,5 +6,5 @@
   },
   "files": ["src/bootstrap.ts"],
   "include": ["src/**/*.ts", "src/**/*.d.ts"],
-  "exclude": ["src/**/*.spec.ts", "src/testing/**"]
+  "exclude": ["src/**/*.spec.ts", "src/testing/**", "src/preview/**"]
 }
