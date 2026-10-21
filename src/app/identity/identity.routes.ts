@@ -16,4 +16,10 @@ export const routes: Routes = [
     title: 'Crear cuenta · TeleMed IA',
     loadComponent: () => import('./pages/register/register.page').then((module) => module.RegisterPage),
   },
+  {
+    path: 'forgot-password',
+    title: 'Recuperar contraseña · TeleMed IA',
+    loadComponent: () =>
+      import('./pages/forgot-password/forgot-password.page').then((module) => module.ForgotPasswordPage),
+  },
 ];
