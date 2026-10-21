@@ -12,6 +12,8 @@ const GENERIC = 'No pudimos completar la solicitud. Inténtalo de nuevo en unos 
 const MESSAGES: Readonly<Record<string, string>> = {
   INVALID_CREDENTIALS: 'El correo o la contraseña no coinciden. Revísalos e inténtalo de nuevo.',
   VALIDATION_ERROR: 'Revisa los datos del formulario e inténtalo de nuevo.',
+  INVALID_REGISTRATION: 'Revisa los datos del formulario e inténtalo de nuevo.',
+  REGISTRATION_CONFLICT: 'Ya existe una cuenta con ese correo o documento. Inicia sesión o recupera tu contraseña.',
   NETWORK_ERROR: 'No pudimos conectarnos. Revisa tu conexión a internet e inténtalo de nuevo.',
   TIMEOUT: 'El servicio tardó demasiado en responder. Inténtalo de nuevo en un momento.',
 };

@@ -18,6 +18,20 @@ export interface SignInResult {
   readonly refreshExpiresAt: string;
 }
 
+/** RegisterPatientRequest of telemed-ia-identity-and-access-api. */
+export interface Registration {
+  readonly fullName: string;
+  readonly email: string;
+  readonly identityDocument: string;
+  readonly password: string;
+}
+
+/** RegisterPatientResponse: the account exists but no session is opened. */
+export interface RegistrationResult {
+  readonly userId: string;
+  readonly role: 'PATIENT';
+}
+
 /**
  * Calls identity-and-access-api through the shell's single HTTP client
  * (NORMA 5.4.1), which adds /api/v1, the correlation id and the error
@@ -29,5 +43,9 @@ export class IdentityApiService {
 
   signIn(credentials: SignInCredentials): Observable<SignInResult> {
     return this.api.post<SignInResult>('/auth/login', credentials, crypto.randomUUID());
+  }
+
+  register(registration: Registration): Observable<RegistrationResult> {
+    return this.api.post<RegistrationResult>('/auth/register', registration, crypto.randomUUID());
   }
 }
