@@ -1,0 +1,197 @@
+/*
+ * Design tokens live on the layout host: the remote's global styles are
+ * not loaded inside the shell, and custom properties reach the projected
+ * page through inheritance.
+ */
+:host {
+  --tm-ink: #172b4d;
+  --tm-text: #3b4a60;
+  --tm-muted: #5d6d82;
+  --tm-primary: #2c7be5;
+  --tm-primary-strong: #1e5fc0;
+  --tm-sky: #eaf4ff;
+  --tm-field: #f5f7fa;
+  --tm-line: #dfe6ef;
+  --tm-surface: #ffffff;
+  --tm-danger: #c53d30;
+  --tm-danger-soft: #fdecea;
+  --tm-success: #168548;
+  --tm-success-soft: #e9f8ef;
+  --tm-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --tm-radius: 10px;
+  --tm-focus: 0 0 0 3px rgba(44, 123, 229, 0.3);
+
+  display: block;
+  font-family: var(--tm-font);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--tm-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+:host *,
+:host *::before,
+:host *::after {
+  box-sizing: border-box;
+}
+
+.auth {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--tm-surface);
+}
+
+/* Visual panel ---------------------------------------------------------- */
+
+.visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 56px 56px;
+  overflow: hidden;
+  color: #ffffff;
+  background: var(--tm-ink);
+  isolation: isolate;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% center;
+}
+
+/* A navy-to-blue veil keeps white text readable over the photo. */
+.visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(23, 43, 77, 0.55) 0%, rgba(23, 43, 77, 0) 22%),
+    linear-gradient(200deg, rgba(44, 123, 229, 0.1) 30%, rgba(30, 95, 192, 0.62) 62%, rgba(23, 43, 77, 0.94) 100%);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  border-radius: var(--tm-radius);
+}
+
+.brand:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.7);
+}
+
+.message {
+  max-width: 34rem;
+}
+
+.pulse {
+  display: block;
+  width: min(100%, 26rem);
+  height: auto;
+  margin-bottom: 20px;
+  overflow: visible;
+}
+
+.pulse path {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.9;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: trace 1.8s cubic-bezier(0.35, 0, 0.25, 1) 0.25s both;
+}
+
+/* Drawn once, like a monitor coming to life; static with reduced motion. */
+@keyframes trace {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse path {
+    animation: none;
+  }
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.25rem, 3.4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.message p {
+  max-width: 30rem;
+  margin: 16px 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* Form panel ------------------------------------------------------------ */
+
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+}
+
+.column {
+  width: 100%;
+  max-width: 25rem;
+}
+
+/* Small screens: the photo becomes a short band above the form. --------- */
+
+@media (max-width: 900px) {
+  .auth {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .visual {
+    min-height: 240px;
+    padding: 20px 20px 24px;
+    gap: 24px;
+  }
+
+  .pulse {
+    width: 14rem;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .message p {
+    display: none;
+  }
+
+  .panel {
+    align-items: flex-start;
+    padding: 32px 20px 48px;
+  }
+}
