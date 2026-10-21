@@ -5,6 +5,9 @@ import { Observable, delay, of, throwError } from 'rxjs';
 export const PREVIEW_EMAIL = 'paciente@telemed.co';
 export const PREVIEW_PASSWORD = 'Clave-segura1';
 
+/** Open /auth/reset-password#token=preview-token; any other token is rejected. */
+export const PREVIEW_RESET_TOKEN = 'preview-token';
+
 const LATENCY_MS = 700;
 
 /**
@@ -33,6 +36,11 @@ export class ApiClientService {
     if (path === '/auth/password-recovery') {
       // Same answer for any email, as identity-api does.
       return of(null as T).pipe(delay(LATENCY_MS));
+    }
+    if (path === '/auth/password-reset') {
+      return (body as { token: string }).token === PREVIEW_RESET_TOKEN
+        ? of(null as T).pipe(delay(LATENCY_MS))
+        : this.fail(401, 'INVALID_RESET_TOKEN', 'Invalid reset token.');
     }
     return this.fail(404, 'NOT_FOUND', `Preview has no POST ${path}`);
   }
