@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { firstValueFrom, of } from 'rxjs';
 import { ApiClientService } from 'shell/apiClient';
-import { IdentityApiService, SignInResult } from './identity-api.service';
+import { IdentityApiService, RegistrationResult, SignInResult } from './identity-api.service';
 
 describe('IdentityApiService', () => {
   const result: SignInResult = {
@@ -45,5 +45,22 @@ describe('IdentityApiService', () => {
     await firstValueFrom(api.signIn(credentials));
 
     expect(post.mock.calls[0][2]).not.toBe(post.mock.calls[1][2]);
+  });
+
+  it('registers a patient through the shell client with the identity-api contract', async () => {
+    const created: RegistrationResult = { userId: '22222222-2222-4222-8222-222222222222', role: 'PATIENT' };
+    const { api, post } = setUp();
+    post.mockReturnValue(of(created));
+    const patient = {
+      fullName: 'Ana María Rojas',
+      email: 'ana@example.com',
+      identityDocument: '1075234567',
+      password: 'Consulta-2026',
+    };
+
+    const response = await firstValueFrom(api.register(patient));
+
+    expect(response).toEqual(created);
+    expect(post).toHaveBeenCalledWith('/auth/register', patient, expect.stringMatching(/^[0-9a-f-]{36}$/));
   });
 });
