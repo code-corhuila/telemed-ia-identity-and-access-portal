@@ -24,6 +24,12 @@ export class ApiClientService {
         ? of({ accessToken: 'preview.token.signature' } as T).pipe(delay(LATENCY_MS))
         : this.fail(401, 'INVALID_CREDENTIALS', 'Invalid credentials.');
     }
+    if (path === '/auth/register') {
+      // The preview account already exists, as a real duplicate would.
+      return (body as { email: string }).email === PREVIEW_EMAIL
+        ? this.fail(409, 'REGISTRATION_CONFLICT', 'Registration conflict.')
+        : of({ userId: crypto.randomUUID(), role: 'PATIENT' } as T).pipe(delay(LATENCY_MS));
+    }
     return this.fail(404, 'NOT_FOUND', `Preview has no POST ${path}`);
   }
 
