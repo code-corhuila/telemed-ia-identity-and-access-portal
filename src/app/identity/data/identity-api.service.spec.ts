@@ -63,4 +63,30 @@ describe('IdentityApiService', () => {
     expect(response).toEqual(created);
     expect(post).toHaveBeenCalledWith('/auth/register', patient, expect.stringMatching(/^[0-9a-f-]{36}$/));
   });
+
+  it('asks for recovery instructions with the email only', async () => {
+    const { api, post } = setUp();
+    post.mockReturnValue(of({ message: 'generic' }));
+
+    await firstValueFrom(api.requestPasswordRecovery('ana@example.com'));
+
+    expect(post).toHaveBeenCalledWith(
+      '/auth/password-recovery',
+      { email: 'ana@example.com' },
+      expect.stringMatching(/^[0-9a-f-]{36}$/),
+    );
+  });
+
+  it('sets the new password with the token from the email link', async () => {
+    const { api, post } = setUp();
+    post.mockReturnValue(of(null));
+
+    await firstValueFrom(api.resetPassword('reset-token', 'Consulta-2026'));
+
+    expect(post).toHaveBeenCalledWith(
+      '/auth/password-reset',
+      { token: 'reset-token', newPassword: 'Consulta-2026' },
+      expect.stringMatching(/^[0-9a-f-]{36}$/),
+    );
+  });
 });
