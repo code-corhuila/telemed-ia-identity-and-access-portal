@@ -39,4 +39,16 @@ describe('errorMessage', () => {
       'No pudimos completar la solicitud. Inténtalo de nuevo en unos minutos.',
     );
   });
+
+  it('points an existing patient to sign in instead of registering again', () => {
+    expect(errorMessage(apiError(409, 'REGISTRATION_CONFLICT')).text).toBe(
+      'Ya existe una cuenta con ese correo o documento. Inicia sesión o recupera tu contraseña.',
+    );
+  });
+
+  it('asks to review the data when the API rejects the registration', () => {
+    expect(errorMessage(apiError(400, 'INVALID_REGISTRATION')).text).toBe(
+      'Revisa los datos del formulario e inténtalo de nuevo.',
+    );
+  });
 });
