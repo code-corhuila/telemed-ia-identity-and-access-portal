@@ -1,0 +1,33 @@
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ApiClientService } from 'shell/apiClient';
+
+export interface SignInCredentials {
+  readonly email: string;
+  readonly password: string;
+}
+
+/** LoginResponse of telemed-ia-identity-and-access-api. */
+export interface SignInResult {
+  readonly userId: string;
+  readonly role: 'PATIENT' | 'PROFESSIONAL' | 'ADMIN';
+  readonly accessToken: string;
+  readonly tokenType: 'Bearer';
+  readonly expiresAt: string;
+  readonly refreshToken: string;
+  readonly refreshExpiresAt: string;
+}
+
+/**
+ * Calls identity-and-access-api through the shell's single HTTP client
+ * (NORMA 5.4.1), which adds /api/v1, the correlation id and the error
+ * envelope normalisation.
+ */
+@Injectable({ providedIn: 'root' })
+export class IdentityApiService {
+  private readonly api = inject(ApiClientService);
+
+  signIn(credentials: SignInCredentials): Observable<SignInResult> {
+    return this.api.post<SignInResult>('/auth/login', credentials, crypto.randomUUID());
+  }
+}
