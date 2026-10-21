@@ -13,6 +13,9 @@ export function passwordPolicy(control: AbstractControl<string | null>): Validat
   if (!value) {
     return null;
   }
+  if (!value.trim()) {
+    return { blank: true };
+  }
   if (characters(value) < MIN_CHARACTERS) {
     return { tooShort: true };
   }
