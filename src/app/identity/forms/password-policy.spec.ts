@@ -8,6 +8,10 @@ describe('passwordPolicy', () => {
     expect(validate('')).toBeNull();
   });
 
+  it('rejects a password made only of spaces, as identity-api does', () => {
+    expect(validate(' '.repeat(10))).toEqual({ blank: true });
+  });
+
   it('asks for at least 8 characters, counted like identity-api', () => {
     expect(validate('Abc123!')).toEqual({ tooShort: true });
     expect(validate('Abc123!x')).toBeNull();
