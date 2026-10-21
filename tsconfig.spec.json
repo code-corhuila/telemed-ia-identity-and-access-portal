@@ -12,5 +12,5 @@
     }
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/shell-modules.d.ts", "src/bootstrap.ts"]
+  "exclude": ["src/shell-modules.d.ts", "src/bootstrap.ts", "src/preview/**"]
 }

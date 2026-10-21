@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "ng serve",
+    "start:preview": "ng run telemed-ia-identity-and-access-portal:serve-preview",
     "build": "ng build",
     "test": "ng test",
     "test:ci": "ng test --watch=false"
