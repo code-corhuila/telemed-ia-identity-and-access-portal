@@ -14,7 +14,7 @@ type Field = 'fullName' | 'email' | 'identityDocument' | 'password';
   selector: 'app-register-page',
   imports: [AuthLayoutComponent, PasswordMeterComponent, ReactiveFormsModule, RouterLink],
   templateUrl: './register.page.html',
-  styleUrls: ['../../ui/form-controls.css', './register.page.css'],
+  styleUrl: '../../ui/form-controls.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPage {

@@ -70,6 +70,12 @@ input[aria-invalid='true'] {
   background: var(--tm-surface);
 }
 
+.hint {
+  margin: 0;
+  color: var(--tm-muted);
+  font-size: 0.8125rem;
+}
+
 .field-error {
   margin: 0;
   color: var(--tm-danger);
@@ -272,6 +278,14 @@ button.text-link {
 .done strong {
   color: var(--tm-ink);
   overflow-wrap: anywhere;
+}
+
+.expired .done-mark circle {
+  fill: var(--tm-danger-soft);
+}
+
+.expired .done-mark path {
+  stroke: var(--tm-danger);
 }
 
 .done .primary {
