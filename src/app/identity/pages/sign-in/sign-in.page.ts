@@ -53,9 +53,8 @@ export class SignInPage {
 
     this.identity.signIn(this.form.getRawValue()).subscribe({
       next: (result) => {
-        // shell/session only keeps the access token; the refresh token is
-        // not persisted until the shell supports it.
-        this.session.signIn(result.accessToken);
+        // The shell keeps the refresh token only to revoke it on sign-out.
+        this.session.signIn(result.accessToken, result.refreshToken);
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
         this.navigation.open(safeReturnUrl(returnUrl));
       },
