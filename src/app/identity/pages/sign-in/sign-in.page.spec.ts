@@ -6,7 +6,7 @@ import { IdentityApiService, SignInResult } from '../../data/identity-api.servic
 import { PageNavigation } from '../../data/page-navigation';
 import { SignInPage } from './sign-in.page';
 
-const RESULT = { accessToken: 'header.payload.signature' } as SignInResult;
+const RESULT = { accessToken: 'header.payload.signature', refreshToken: 'refresh-token' } as SignInResult;
 
 describe('SignInPage', () => {
   function render(options: { signIn?: ReturnType<typeof vi.fn>; returnUrl?: string } = {}) {
@@ -77,7 +77,10 @@ describe('SignInPage', () => {
 
   it('opens the session and reloads the shell on the requested page', () => {
     const { signIn, navigate, type, submit } = render({ returnUrl: '/appointment' });
-    const session = TestBed.inject(SessionService) as SessionService & { getToken(): string | null };
+    const session = TestBed.inject(SessionService) as SessionService & {
+      getToken(): string | null;
+      getRefreshToken(): string | null;
+    };
 
     type('email', ' patient@example.com ');
     type('password', 'Secret123!');
@@ -85,6 +88,8 @@ describe('SignInPage', () => {
 
     expect(signIn).toHaveBeenCalledWith({ email: 'patient@example.com', password: 'Secret123!' });
     expect(session.getToken()).toBe('header.payload.signature');
+    // Handed to the shell so sign-out can revoke it in identity-api.
+    expect(session.getRefreshToken()).toBe('refresh-token');
     expect(navigate).toHaveBeenCalledWith('/appointment');
   });
 
