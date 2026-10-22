@@ -9,12 +9,13 @@ import { resetTokenFrom } from '../../data/reset-token';
 import { passwordPolicy } from '../../forms/password-policy';
 import { AuthLayoutComponent } from '../../ui/auth-layout.component';
 import { PasswordMeterComponent } from '../../ui/password-meter.component';
+import { RevealToggleComponent } from '../../ui/reveal-toggle.component';
 
 type Step = 'form' | 'done' | 'invalidLink';
 
 @Component({
   selector: 'app-reset-password-page',
-  imports: [AuthLayoutComponent, PasswordMeterComponent, ReactiveFormsModule, RouterLink],
+  imports: [AuthLayoutComponent, PasswordMeterComponent, ReactiveFormsModule, RevealToggleComponent, RouterLink],
   templateUrl: './reset-password.page.html',
   styleUrl: '../../ui/form-controls.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
