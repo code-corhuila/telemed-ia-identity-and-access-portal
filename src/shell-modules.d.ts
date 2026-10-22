@@ -15,7 +15,7 @@ declare module 'shell/apiClient' {
 declare module 'shell/session' {
   export class SessionService {
     isAuthenticated(): boolean;
-    signIn(token: string): void;
+    signIn(token: string, refreshToken?: string): void;
   }
 }
 

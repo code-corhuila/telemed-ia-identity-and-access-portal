@@ -9,7 +9,7 @@ export class SessionService {
     return this.token !== null;
   }
 
-  signIn(token: string): void {
+  signIn(token: string, _refreshToken?: string): void {
     this.token = token;
     console.info('[preview] session opened');
   }
