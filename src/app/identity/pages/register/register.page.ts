@@ -7,12 +7,13 @@ import { IdentityApiService } from '../../data/identity-api.service';
 import { passwordPolicy } from '../../forms/password-policy';
 import { AuthLayoutComponent } from '../../ui/auth-layout.component';
 import { PasswordMeterComponent } from '../../ui/password-meter.component';
+import { RevealToggleComponent } from '../../ui/reveal-toggle.component';
 
 type Field = 'fullName' | 'email' | 'identityDocument' | 'password';
 
 @Component({
   selector: 'app-register-page',
-  imports: [AuthLayoutComponent, PasswordMeterComponent, ReactiveFormsModule, RouterLink],
+  imports: [AuthLayoutComponent, PasswordMeterComponent, ReactiveFormsModule, RevealToggleComponent, RouterLink],
   templateUrl: './register.page.html',
   styleUrl: '../../ui/form-controls.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

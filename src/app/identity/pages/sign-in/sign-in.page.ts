@@ -6,10 +6,11 @@ import { UserMessage, errorMessage } from '../../data/error-message';
 import { IdentityApiService } from '../../data/identity-api.service';
 import { safeReturnUrl } from '../../data/safe-return-url';
 import { AuthLayoutComponent } from '../../ui/auth-layout.component';
+import { RevealToggleComponent } from '../../ui/reveal-toggle.component';
 
 @Component({
   selector: 'app-sign-in-page',
-  imports: [AuthLayoutComponent, ReactiveFormsModule, RouterLink],
+  imports: [AuthLayoutComponent, ReactiveFormsModule, RevealToggleComponent, RouterLink],
   templateUrl: './sign-in.page.html',
   styleUrl: '../../ui/form-controls.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
