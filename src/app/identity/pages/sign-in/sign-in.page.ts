@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SessionService } from 'shell/session';
 import { UserMessage, errorMessage } from '../../data/error-message';
 import { IdentityApiService } from '../../data/identity-api.service';
+import { PageNavigation } from '../../data/page-navigation';
 import { safeReturnUrl } from '../../data/safe-return-url';
 import { AuthLayoutComponent } from '../../ui/auth-layout.component';
 import { RevealToggleComponent } from '../../ui/reveal-toggle.component';
@@ -18,7 +19,7 @@ import { RevealToggleComponent } from '../../ui/reveal-toggle.component';
 export class SignInPage {
   private readonly identity = inject(IdentityApiService);
   private readonly session = inject(SessionService);
-  private readonly router = inject(Router);
+  private readonly navigation = inject(PageNavigation);
   private readonly route = inject(ActivatedRoute);
 
   protected readonly form = inject(FormBuilder).nonNullable.group({
@@ -56,7 +57,7 @@ export class SignInPage {
         // not persisted until the shell supports it.
         this.session.signIn(result.accessToken);
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-        void this.router.navigateByUrl(safeReturnUrl(returnUrl));
+        this.navigation.open(safeReturnUrl(returnUrl));
       },
       error: (error: unknown) => {
         this.submitting.set(false);
