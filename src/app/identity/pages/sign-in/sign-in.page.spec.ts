@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router, convertToParamMap, provideRouter } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { Subject, of, throwError } from 'rxjs';
 import { SessionService } from 'shell/session';
 import { IdentityApiService, SignInResult } from '../../data/identity-api.service';
+import { PageNavigation } from '../../data/page-navigation';
 import { SignInPage } from './sign-in.page';
 
 const RESULT = { accessToken: 'header.payload.signature' } as SignInResult;
@@ -10,9 +11,11 @@ const RESULT = { accessToken: 'header.payload.signature' } as SignInResult;
 describe('SignInPage', () => {
   function render(options: { signIn?: ReturnType<typeof vi.fn>; returnUrl?: string } = {}) {
     const signIn = options.signIn ?? vi.fn().mockReturnValue(of(RESULT));
+    const navigate = vi.fn();
     TestBed.configureTestingModule({
       providers: [
         provideRouter([]),
+        { provide: PageNavigation, useValue: { open: navigate } },
         { provide: IdentityApiService, useValue: { signIn } },
         {
           provide: ActivatedRoute,
@@ -25,8 +28,6 @@ describe('SignInPage', () => {
       ],
     });
     const fixture = TestBed.createComponent(SignInPage);
-    const router = TestBed.inject(Router);
-    const navigate = vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
     fixture.detectChanges();
     const page = fixture.nativeElement as HTMLElement;
 
@@ -74,7 +75,7 @@ describe('SignInPage', () => {
     expect(toggle.getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('opens the session in the shell and returns to the requested page', () => {
+  it('opens the session and reloads the shell on the requested page', () => {
     const { signIn, navigate, type, submit } = render({ returnUrl: '/appointment' });
     const session = TestBed.inject(SessionService) as SessionService & { getToken(): string | null };
 
