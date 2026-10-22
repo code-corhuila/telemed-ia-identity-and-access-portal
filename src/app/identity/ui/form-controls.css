@@ -119,11 +119,6 @@ input[aria-invalid='true'] {
   box-shadow: var(--tm-focus);
 }
 
-.reveal svg {
-  width: 20px;
-  height: 20px;
-}
-
 /* Actions */
 .primary {
   display: inline-flex;
