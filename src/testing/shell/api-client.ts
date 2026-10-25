@@ -8,7 +8,15 @@ export class ApiClientService {
     return throwError(() => new Error(`Unexpected GET ${path}`));
   }
 
+  getWithParams<T>(path: string, _params: Record<string, string | number>): Observable<T> {
+    return throwError(() => new Error(`Unexpected GET ${path}`));
+  }
+
   post<T>(path: string, _body: unknown, _idempotencyKey: string): Observable<T> {
     return throwError(() => new Error(`Unexpected POST ${path}`));
+  }
+
+  put<T>(path: string, _body: unknown): Observable<T> {
+    return throwError(() => new Error(`Unexpected PUT ${path}`));
   }
 }
