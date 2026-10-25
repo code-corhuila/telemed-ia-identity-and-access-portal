@@ -24,6 +24,12 @@ describe('errorMessage', () => {
     );
   });
 
+  it('explains why an account cannot be blocked', () => {
+    expect(errorMessage(apiError(409, 'ACCOUNT_STATUS_CONFLICT')).text).toBe(
+      'No puedes bloquear tu propia cuenta ni al último administrador activo.',
+    );
+  });
+
   it('separates connection problems from server failures', () => {
     expect(errorMessage(apiError(0, 'NETWORK_ERROR')).text).toBe(
       'No pudimos conectarnos. Revisa tu conexión a internet e inténtalo de nuevo.',

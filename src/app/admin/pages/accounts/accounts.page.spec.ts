@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { Account, AccountPage, AdminAccountsService } from '../../data/admin-accounts.service';
 import { AccountsPage } from './accounts.page';
@@ -31,7 +32,7 @@ describe('AccountsPage', () => {
   function render(list = vi.fn().mockReturnValue(of(pageOf([ana, bruno], 1, 2)))) {
     TestBed.configureTestingModule({
       imports: [AccountsPage],
-      providers: [{ provide: AdminAccountsService, useValue: { list } }],
+      providers: [provideRouter([]), { provide: AdminAccountsService, useValue: { list } }],
     });
     const fixture = TestBed.createComponent(AccountsPage);
     fixture.detectChanges();
@@ -57,6 +58,7 @@ describe('AccountsPage', () => {
     expect(rows[1].textContent).toContain('Profesional');
     expect(rows[1].textContent).toContain('Bloqueada');
     expect(element.textContent).toContain('Página 1 de 2');
+    expect(rows[0].querySelector('a')?.getAttribute('href')).toBe(`/${ana.id}`);
   });
 
   it('searches from the first page with the typed text', () => {
