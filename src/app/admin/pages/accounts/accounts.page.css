@@ -1,0 +1,212 @@
+/* Same brand tokens as the other remotes, so the shell reads as one product. */
+:host {
+  --telemed-primary: #2c6bed;
+  --telemed-primary-dark: #2159c7;
+  --telemed-text: #172b4d;
+  --telemed-muted: #5f6b7d;
+  --telemed-border: #dfe5ed;
+  --telemed-surface: #ffffff;
+  --telemed-success: #238636;
+  --telemed-success-soft: #eaf7ef;
+  --telemed-danger: #b42318;
+  --telemed-danger-soft: #fef3f2;
+
+  display: block;
+  color: var(--telemed-text);
+}
+
+.page-title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.lede,
+.filter,
+th,
+.email,
+.pager {
+  color: var(--telemed-muted);
+}
+
+.toolbar,
+.search,
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.toolbar {
+  margin-bottom: 1.25rem;
+}
+
+.search {
+  flex: 1 1 18rem;
+  flex-wrap: nowrap;
+}
+
+input,
+select,
+.button {
+  min-height: 2.75rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--telemed-border);
+  border-radius: 12px;
+  background: var(--telemed-surface);
+  color: inherit;
+  font: inherit;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+}
+
+.filter {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+:is(input, select, .button):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--telemed-primary) 40%, transparent);
+  outline-offset: 2px;
+}
+
+.button {
+  border-color: var(--telemed-primary);
+  background: var(--telemed-primary);
+  color: #fff;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--telemed-primary-dark);
+}
+
+.button--quiet {
+  border-color: var(--telemed-border);
+  background: var(--telemed-surface);
+  color: var(--telemed-text);
+}
+
+.button--quiet:hover:not(:disabled) {
+  background: #f4f7fb;
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.notice,
+.accounts {
+  border: 1px solid var(--telemed-border);
+  border-radius: 18px;
+  background: var(--telemed-surface);
+}
+
+.notice {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice--error {
+  border-color: #f4c7c3;
+  background: var(--telemed-danger-soft);
+  color: var(--telemed-danger);
+}
+
+.accounts {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--telemed-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+.name {
+  display: block;
+  font-weight: 650;
+}
+
+.email {
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.status {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--telemed-success-soft);
+  color: var(--telemed-success);
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.status--blocked {
+  background: var(--telemed-danger-soft);
+  color: var(--telemed-danger);
+}
+
+.pager {
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+/* Narrow screens: every row becomes a card that names its fields. */
+@media (max-width: 720px) {
+  thead {
+    display: none;
+  }
+
+  tr,
+  td {
+    display: block;
+  }
+
+  tr {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--telemed-border);
+  }
+
+  td {
+    padding: 0.35rem 1rem;
+    border: 0;
+  }
+
+  td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.8rem;
+    color: var(--telemed-muted);
+  }
+}
