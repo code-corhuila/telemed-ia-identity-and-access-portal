@@ -10,4 +10,10 @@ export const routes: Routes = [
     title: 'Cuentas · TeleMed IA',
     loadComponent: () => import('./pages/accounts/accounts.page').then((module) => module.AccountsPage),
   },
+  {
+    path: ':id',
+    title: 'Cuenta · TeleMed IA',
+    loadComponent: () =>
+      import('./pages/account-detail/account-detail.page').then((module) => module.AccountDetailPage),
+  },
 ];

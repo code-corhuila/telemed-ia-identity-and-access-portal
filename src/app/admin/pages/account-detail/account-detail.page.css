@@ -1,0 +1,107 @@
+/* The account page's own layout; buttons, notices and statuses come from admin.css. */
+.back {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  color: var(--telemed-primary-dark);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.identity {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--telemed-primary-soft);
+  color: var(--telemed-primary-dark);
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem 1.5rem;
+  margin: 0 0 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--telemed-border);
+  border-radius: 18px;
+  background: var(--telemed-surface);
+}
+
+dt {
+  font-size: 0.85rem;
+  color: var(--telemed-muted);
+}
+
+dd {
+  margin: 0.2rem 0 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.access {
+  display: grid;
+  gap: 0.85rem;
+  justify-items: start;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--telemed-border);
+  border-left: 4px solid var(--telemed-success);
+  border-radius: 18px;
+  background: var(--telemed-surface);
+}
+
+.access--blocked {
+  border-left-color: var(--telemed-danger);
+}
+
+.access h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.access p {
+  margin: 0;
+  max-width: 60ch;
+  line-height: 1.5;
+}
+
+.confirm {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background: var(--telemed-danger-soft);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.feedback {
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  background: var(--telemed-success-soft);
+  color: var(--telemed-success);
+  font-weight: 600;
+}
+
+.feedback--error {
+  background: var(--telemed-danger-soft);
+  color: var(--telemed-danger);
+}

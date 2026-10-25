@@ -1,0 +1,106 @@
+/* Shared by the administration pages; same brand tokens as the other remotes. */
+:host {
+  --telemed-primary: #2c6bed;
+  --telemed-primary-dark: #2159c7;
+  --telemed-primary-soft: #edf4ff;
+  --telemed-text: #172b4d;
+  --telemed-muted: #5f6b7d;
+  --telemed-border: #dfe5ed;
+  --telemed-surface: #ffffff;
+  --telemed-success: #238636;
+  --telemed-success-soft: #eaf7ef;
+  --telemed-danger: #b42318;
+  --telemed-danger-soft: #fef3f2;
+
+  display: block;
+  color: var(--telemed-text);
+}
+
+.page-title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.button {
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border: 1px solid var(--telemed-primary);
+  border-radius: 12px;
+  background: var(--telemed-primary);
+  color: #fff;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--telemed-primary-dark);
+}
+
+.button--quiet {
+  border-color: var(--telemed-border);
+  background: var(--telemed-surface);
+  color: var(--telemed-text);
+}
+
+.button--quiet:hover:not(:disabled) {
+  background: #f4f7fb;
+}
+
+.button--danger {
+  border-color: var(--telemed-danger);
+  background: var(--telemed-danger);
+}
+
+.button--danger:hover:not(:disabled) {
+  background: #912018;
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+:is(a, input, select, .button):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--telemed-primary) 40%, transparent);
+  outline-offset: 2px;
+}
+
+.notice {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--telemed-border);
+  border-radius: 18px;
+  background: var(--telemed-surface);
+  color: var(--telemed-muted);
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice--error {
+  border-color: #f4c7c3;
+  background: var(--telemed-danger-soft);
+  color: var(--telemed-danger);
+}
+
+.status {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--telemed-success-soft);
+  color: var(--telemed-success);
+  font-size: 0.85rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.status--blocked {
+  background: var(--telemed-danger-soft);
+  color: var(--telemed-danger);
+}
