@@ -4,11 +4,16 @@
 declare module 'shell/apiClient' {
   export class ApiClientService {
     get<T>(path: string): import('rxjs').Observable<T>;
+    getWithParams<T>(
+      path: string,
+      params: Record<string, string | number>,
+    ): import('rxjs').Observable<T>;
     post<T>(
       path: string,
       body: unknown,
       idempotencyKey: string,
     ): import('rxjs').Observable<T>;
+    put<T>(path: string, body: unknown): import('rxjs').Observable<T>;
   }
 }
 
