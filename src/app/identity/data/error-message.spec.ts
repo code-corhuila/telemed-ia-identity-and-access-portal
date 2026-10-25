@@ -18,6 +18,12 @@ describe('errorMessage', () => {
     );
   });
 
+  it('tells a non-administrator that account administration is not for them', () => {
+    expect(errorMessage(apiError(403, 'FORBIDDEN')).text).toBe(
+      'Solo los administradores pueden gestionar las cuentas.',
+    );
+  });
+
   it('separates connection problems from server failures', () => {
     expect(errorMessage(apiError(0, 'NETWORK_ERROR')).text).toBe(
       'No pudimos conectarnos. Revisa tu conexión a internet e inténtalo de nuevo.',
