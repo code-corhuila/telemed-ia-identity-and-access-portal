@@ -15,6 +15,7 @@ const MESSAGES: Readonly<Record<string, string>> = {
   INVALID_REGISTRATION: 'Revisa los datos del formulario e inténtalo de nuevo.',
   INVALID_RESET_TOKEN: 'El enlace para restablecer tu contraseña no es válido o ya venció. Solicita uno nuevo.',
   INVALID_NEW_PASSWORD: 'La nueva contraseña no cumple los requisitos. Usa al menos 8 caracteres.',
+  FORBIDDEN: 'Solo los administradores pueden gestionar las cuentas.',
   REGISTRATION_CONFLICT: 'Ya existe una cuenta con ese correo o documento. Inicia sesión o recupera tu contraseña.',
   NETWORK_ERROR: 'No pudimos conectarnos. Revisa tu conexión a internet e inténtalo de nuevo.',
   TIMEOUT: 'El servicio tardó demasiado en responder. Inténtalo de nuevo en un momento.',
