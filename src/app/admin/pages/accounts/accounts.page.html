@@ -61,7 +61,7 @@
       @for (account of current.page.data; track account.id) {
         <tr data-testid="account-row">
           <td data-label="Cuenta">
-            <span class="name">{{ account.fullName }}</span>
+            <a class="name" [routerLink]="account.id">{{ account.fullName }}</a>
             <span class="email">{{ account.email }}</span>
           </td>
           <td data-label="Documento">{{ account.identityDocument }}</td>
