@@ -42,6 +42,13 @@
   background: var(--telemed-surface);
 }
 
+/* Wide screens: a long email keeps one line instead of breaking at its hyphens. */
+@media (min-width: 64rem) {
+  .wide {
+    grid-column: span 2;
+  }
+}
+
 dt {
   font-size: 0.85rem;
   color: var(--telemed-muted);
