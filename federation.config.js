@@ -6,10 +6,12 @@ const {
 module.exports = withNativeFederation({
   name: 'identity',
 
-  // The shell mounts these public routes (sign-in, registration and
-  // password recovery) outside its authGuard.
+  // The shell mounts the public routes (sign-in, registration and password
+  // recovery) outside its authGuard, and the admin routes inside it.
   exposes: {
     './routes': './src/app/identity/identity.routes.ts',
+    // Administration → Accounts, mounted by the shell inside its authGuard.
+    './admin': './src/app/admin/admin.routes.ts',
   },
 
   shared: {
