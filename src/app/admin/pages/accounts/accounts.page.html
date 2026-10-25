@@ -1,0 +1,88 @@
+<h1 class="page-title">Cuentas</h1>
+<p class="lede">Consulta las cuentas registradas en TeleMed IA y su último acceso.</p>
+
+<div class="toolbar">
+  <form class="search" role="search" (submit)="$event.preventDefault(); search(text.value)">
+    <input #text type="search" aria-label="Buscar cuentas" placeholder="Nombre, correo o documento"
+      [value]="query().text" />
+    <button type="submit" class="button">Buscar</button>
+  </form>
+
+  <label class="filter">
+    Rol
+    <select [value]="query().role ?? ''" (change)="filterRole($any($event.target).value)">
+      <option value="">Todos</option>
+      <option value="PATIENT">Pacientes</option>
+      <option value="PROFESSIONAL">Profesionales</option>
+      <option value="ADMIN">Administradores</option>
+    </select>
+  </label>
+
+  <label class="filter">
+    Estado
+    <select [value]="query().active === null ? '' : '' + query().active" (change)="filterStatus($any($event.target).value)">
+      <option value="">Todas</option>
+      <option value="true">Activas</option>
+      <option value="false">Bloqueadas</option>
+    </select>
+  </label>
+</div>
+
+@let current = state();
+@if (current.kind === 'loading') {
+  <p class="notice" aria-busy="true">Cargando cuentas…</p>
+} @else if (current.kind === 'error') {
+  <div class="notice notice--error" role="alert">
+    <p>{{ current.message.text }}</p>
+    @if (current.message.supportCode) {
+      <p class="support">Código de soporte: {{ current.message.supportCode }}</p>
+    }
+    <button type="button" class="button" data-testid="retry" (click)="load()">Reintentar</button>
+  </div>
+} @else if (current.page.data.length === 0) {
+  <div class="notice">
+    <p>Ninguna cuenta coincide con la búsqueda.</p>
+    <button type="button" class="button button--quiet" data-testid="clear-filters" (click)="clearFilters()">
+      Quitar filtros
+    </button>
+  </div>
+} @else {
+  <table class="accounts">
+    <thead>
+      <tr>
+        <th scope="col">Cuenta</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Último acceso</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (account of current.page.data; track account.id) {
+        <tr data-testid="account-row">
+          <td data-label="Cuenta">
+            <span class="name">{{ account.fullName }}</span>
+            <span class="email">{{ account.email }}</span>
+          </td>
+          <td data-label="Documento">{{ account.identityDocument }}</td>
+          <td data-label="Rol">{{ roleLabels[account.role] }}</td>
+          <td data-label="Estado">
+            <span class="status" [class.status--blocked]="!account.active">
+              {{ account.active ? 'Activa' : 'Bloqueada' }}
+            </span>
+          </td>
+          <td data-label="Último acceso">{{ lastAccess(account.lastAccess) }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <nav class="pager" aria-label="Páginas de cuentas">
+    <button type="button" class="button button--quiet" [disabled]="current.page.meta.page <= 1"
+      (click)="goTo(current.page.meta.page - 1)">Anterior</button>
+    <span>Página {{ current.page.meta.page }} de {{ current.page.meta.totalPages }} ({{ current.page.meta.total }} cuentas)</span>
+    <button type="button" class="button button--quiet"
+      [disabled]="current.page.meta.page >= current.page.meta.totalPages"
+      (click)="goTo(current.page.meta.page + 1)">Siguiente</button>
+  </nav>
+}
