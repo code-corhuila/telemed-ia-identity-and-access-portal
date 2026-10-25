@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { UserMessage, errorMessage } from '../../../identity/data/error-message';
 import { AccountPage, AccountQuery, AccountRole, AdminAccountsService } from '../../data/admin-accounts.service';
@@ -17,7 +18,7 @@ export const ROLE_LABELS: Readonly<Record<AccountRole, string>> = {
 };
 
 // The platform runs in Colombia: dates read in Colombian time whatever the device says.
-const DATE_TIME = new Intl.DateTimeFormat('es-CO', {
+export const DATE_TIME = new Intl.DateTimeFormat('es-CO', {
   dateStyle: 'medium',
   timeStyle: 'short',
   timeZone: 'America/Bogota',
@@ -27,8 +28,9 @@ const DATE_TIME = new Intl.DateTimeFormat('es-CO', {
 @Component({
   selector: 'app-accounts-page',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './accounts.page.html',
-  styleUrl: './accounts.page.css',
+  styleUrls: ['../../ui/admin.css', './accounts.page.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountsPage {

@@ -1,0 +1,71 @@
+<a class="back" routerLink="..">Volver a cuentas</a>
+
+@let current = state();
+@if (current.kind === 'loading') {
+  <p class="notice" aria-busy="true">Cargando la cuenta…</p>
+} @else if (current.kind === 'missing') {
+  <p class="notice">No encontramos esta cuenta. Puede que el enlace esté incompleto.</p>
+} @else if (current.kind === 'error') {
+  <div class="notice notice--error" role="alert">
+    <p>{{ current.message.text }}</p>
+    <button type="button" class="button" (click)="load()">Reintentar</button>
+  </div>
+} @else {
+  @let account = current.account;
+  <header class="identity">
+    <span class="avatar" aria-hidden="true">{{ initials(account.fullName) }}</span>
+    <div>
+      <h1 class="page-title">{{ account.fullName }}</h1>
+      <span class="status" [class.status--blocked]="!account.active">
+        {{ account.active ? 'Activa' : 'Bloqueada' }}
+      </span>
+    </div>
+  </header>
+
+  <dl class="facts">
+    <div><dt>Correo</dt><dd>{{ account.email }}</dd></div>
+    <div><dt>Documento</dt><dd>{{ account.identityDocument }}</dd></div>
+    <div><dt>Rol</dt><dd>{{ roleLabels[account.role] }}</dd></div>
+    <div><dt>Registrada</dt><dd>{{ format(account.registrationDate) }}</dd></div>
+    <div><dt>Último acceso</dt><dd>{{ format(account.lastAccess) }}</dd></div>
+  </dl>
+
+  <section class="access" [class.access--blocked]="!account.active" aria-labelledby="access-title">
+    <h2 id="access-title">Acceso a la plataforma</h2>
+
+    @if (done(); as message) {
+      <p class="feedback" role="status">{{ message }}</p>
+    }
+    @if (failure(); as message) {
+      <p class="feedback feedback--error" role="alert">{{ message.text }}</p>
+    }
+
+    @if (!account.active) {
+      <p>Esta cuenta no puede iniciar sesión.</p>
+      <button type="button" class="button" data-testid="restore" [disabled]="saving()" (click)="setActive(true)">
+        Restaurar acceso
+      </button>
+    } @else if (confirming()) {
+      <div class="confirm">
+        <p>
+          No podrá iniciar sesión y se cerrarán sus sesiones. Si ya tiene una sesión abierta, esta deja de
+          funcionar en máximo una hora.
+        </p>
+        @if (account.role === 'PROFESSIONAL') {
+          <p>Bloquear el acceso no cambia su perfil profesional ni su agenda.</p>
+        }
+        <div class="actions">
+          <button type="button" class="button button--danger" data-testid="confirm-block" (click)="setActive(false)">
+            Sí, bloquear acceso
+          </button>
+          <button type="button" class="button button--quiet" (click)="confirming.set(false)">Cancelar</button>
+        </div>
+      </div>
+    } @else {
+      <p>Esta cuenta puede iniciar sesión.</p>
+      <button type="button" class="button button--quiet" data-testid="block" [disabled]="saving()" (click)="askToBlock()">
+        Bloquear acceso
+      </button>
+    }
+  </section>
+}
