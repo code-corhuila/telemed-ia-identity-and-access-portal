@@ -12,6 +12,13 @@ describe('errorMessage', () => {
     );
   });
 
+  it('asks to wait when too many failed logins locked the account', () => {
+    const message = errorMessage(apiError(429, 'TOO_MANY_LOGIN_ATTEMPTS', 'trace-123'));
+
+    expect(message.text).toBe('Demasiados intentos fallidos. Espera unos minutos e inténtalo de nuevo.');
+    expect(message.supportCode).toBeUndefined();
+  });
+
   it('tells the user to check the form on validation errors', () => {
     expect(errorMessage(apiError(400, 'VALIDATION_ERROR')).text).toBe(
       'Revisa los datos del formulario e inténtalo de nuevo.',
