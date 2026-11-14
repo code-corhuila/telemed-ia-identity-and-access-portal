@@ -1,0 +1,14 @@
+services:
+  identity-portal:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "${PORT:-4206}:80"
+    networks:
+      - platform
+
+networks:
+  platform:
+    external: true
+    name: platform

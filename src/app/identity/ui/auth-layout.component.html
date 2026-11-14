@@ -1,0 +1,29 @@
+<div class="auth">
+  <aside class="visual">
+    <img class="photo" [src]="photoUrl" alt="" />
+
+    <a class="brand" routerLink="/" aria-label="TeleMed IA, inicio">
+      <img [src]="logoUrl" alt="" width="40" height="40" />
+      <span>TeleMed IA</span>
+    </a>
+
+    <div class="message">
+      <svg class="pulse" viewBox="0 0 600 80" aria-hidden="true" focusable="false">
+        <path
+          pathLength="1"
+          d="M0 44 H170 l12 -7 l12 7 H236 l9 -34 l12 66 l10 -46 l8 14 H340 l14 -9 l14 9 H600"
+        />
+      </svg>
+      <h1>{{ heading() }}</h1>
+      @if (lede()) {
+        <p>{{ lede() }}</p>
+      }
+    </div>
+  </aside>
+
+  <main class="panel">
+    <div class="column">
+      <ng-content />
+    </div>
+  </main>
+</div>

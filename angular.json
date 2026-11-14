@@ -1,0 +1,122 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "telemed-ia-identity-and-access-portal": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "telemed-ia-identity-and-access-portal:esbuild",
+            "outputPath": "dist/telemed-ia-identity-and-access-portal"
+          },
+          "configurations": {
+            "production": {
+              "target": "telemed-ia-identity-and-access-portal:esbuild:production"
+            },
+            "development": {
+              "target": "telemed-ia-identity-and-access-portal:esbuild:development",
+              "dev": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "esbuild": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/telemed-ia-identity-and-access-portal",
+            "browser": "src/bootstrap.ts",
+            "index": "src/index.html",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": ["src/styles.css"],
+            "externalDependencies": [
+              "shell/apiClient",
+              "shell/session",
+              "shell/apiError"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
+              "sourceMap": false,
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true
+            },
+            "test": {
+              "optimization": false,
+              "sourceMap": true,
+              "browser": "src/main.ts",
+              "tsConfig": "tsconfig.spec.json",
+              "externalDependencies": []
+            },
+            "preview": {
+              "optimization": false,
+              "sourceMap": true,
+              "browser": "src/main.ts",
+              "tsConfig": "tsconfig.preview.json",
+              "externalDependencies": []
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "telemed-ia-identity-and-access-portal:serve-original:development",
+            "rebuildDelay": 500,
+            "dev": true,
+            "port": 4206
+          }
+        },
+        "serve-original": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4206
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "telemed-ia-identity-and-access-portal:esbuild:production"
+            },
+            "development": {
+              "buildTarget": "telemed-ia-identity-and-access-portal:esbuild:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "buildTarget": "telemed-ia-identity-and-access-portal:esbuild:test"
+          }
+        },
+        "serve-preview": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4206,
+            "buildTarget": "telemed-ia-identity-and-access-portal:esbuild:preview"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}
